@@ -11,7 +11,7 @@ public class LoanSimulationController(ILoanSimulationService loanSimulationServi
 {
     [HttpPost]
     [Consumes("application/json")]
-    public async Task<IActionResult> SimulateLoan([FromBody] LoanProposalDto proposalDto)
+    public async Task<IActionResult> SimulateLoan([FromBody] LoanProposalDto? proposalDto)
     {
         if (proposalDto == null)
             return BadRequest("Request body cannot be null.");
@@ -19,7 +19,7 @@ public class LoanSimulationController(ILoanSimulationService loanSimulationServi
         if (proposalDto.LoanAmount <= 0)
             return BadRequest("LoanAmount must be greater than zero.");
 
-        if (proposalDto.AnnualInterestRate <= 0 || proposalDto.AnnualInterestRate > 1)
+        if (proposalDto.AnnualInterestRate is <= 0 or > 1)
             return BadRequest("AnnualInterestRate must be between 0 and 1.");
 
         if (proposalDto.NumberOfMonths <= 0)
