@@ -31,7 +31,7 @@ Clone o repositório utilizando o comando abaixo:
 Depois de clonar, acesse o diretório do projeto:
 
 ```bash
-  cd LoanSimPriceAPI
+  cd LoanSimPriceAPI/LoanSimPriceAPI
 ```
 ---
 
@@ -54,11 +54,6 @@ Um script `run_project.bat` foi fornecido para automatizar todo o processo. Ele:
 2️⃣ **Execute o script [`run_project.bat`](./LoanSimPriceAPI/run_project.bat):**
 ```bash
   ./run_project.bat
-```
-
-3️⃣ **Verifique se os containers estão rodando:**
-```bash
-  docker ps
 ```
 
 Se preferir rodar os comandos manualmente, siga:
