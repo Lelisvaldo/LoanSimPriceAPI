@@ -4,32 +4,25 @@ using LoanSimPriceAPI.Services.Interfaces;
 
 namespace LoanSimPriceAPI.Services;
 
-public class LoanRepository : ILoanRepository
+public class LoanRepository(ApplicationDbContext context) : ILoanRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public LoanRepository(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<LoanProposal> AddProposalAsync(LoanProposal proposal)
     {
-        _context.LoanProposals.Add(proposal);
-        await _context.SaveChangesAsync();
+        context.LoanProposals.Add(proposal);
+        await context.SaveChangesAsync();
         return proposal;
     }
 
     public async Task<PaymentSchedule> AddPaymentScheduleAsync(PaymentSchedule schedule)
     {
-        _context.PaymentSchedules.Add(schedule);
-        await _context.SaveChangesAsync();
+        context.PaymentSchedules.Add(schedule);
+        await context.SaveChangesAsync();
         return schedule;
     }
 
     public async Task AddPaymentFlowSummaryAsync(IEnumerable<PaymentFlowSummary> paymentFlows)
     {
-        _context.PaymentFlowSummaries.AddRange(paymentFlows);
-        await _context.SaveChangesAsync();
+        context.PaymentFlowSummaries.AddRange(paymentFlows);
+        await context.SaveChangesAsync();
     }
 }

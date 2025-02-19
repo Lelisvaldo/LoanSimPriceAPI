@@ -8,18 +8,17 @@ public class LoanSimulationService(ILoanRepository loanRepository) : ILoanSimula
     public async Task<PaymentSchedule> SimulateLoanAsync(LoanProposal proposal)
     {
         var monthlyRate = proposal.AnnualInterestRate / 12;
-        var monthlyPayment = proposal.LoanAmount *
-                             (monthlyRate / (decimal)(1 - Math.Pow(1 + (double)monthlyRate, -proposal.NumberOfMonths)));
+        var monthlyPayment = proposal.LoanAmount * (monthlyRate / (decimal)(1 - Math.Pow(1 + (double)monthlyRate, -proposal.NumberOfMonths)));
 
         var totalPayment = monthlyPayment * proposal.NumberOfMonths;
         var totalInterest = totalPayment - proposal.LoanAmount;
 
         proposal = await loanRepository.AddProposalAsync(proposal);
 
-        decimal balance = proposal.LoanAmount;
+        var balance = proposal.LoanAmount;
         var paymentScheduleList = new List<PaymentFlowSummary>();
 
-        for (int month = 1; month <= proposal.NumberOfMonths; month++)
+        for (var month = 1; month <= proposal.NumberOfMonths; month++)
         {
             var interest = balance * monthlyRate;
             var principal = monthlyPayment - interest;
@@ -47,7 +46,6 @@ public class LoanSimulationService(ILoanRepository loanRepository) : ILoanSimula
         };
 
         await loanRepository.AddPaymentScheduleAsync(schedule);
-        await loanRepository.AddPaymentFlowSummaryAsync(paymentScheduleList);
 
         return schedule;
     }

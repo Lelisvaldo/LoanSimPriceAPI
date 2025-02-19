@@ -1,4 +1,6 @@
-﻿namespace LoanSimPriceAPI.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace LoanSimPriceAPI.Models;
 
 public class PaymentFlowSummary
 {
@@ -8,5 +10,8 @@ public class PaymentFlowSummary
     public decimal Interest { get; set; }
     public decimal Balance { get; set; }
     public int LoanProposalId { get; set; }
-    public LoanProposal LoanProposal { get; set; }
+
+    [JsonIgnore] public LoanProposal LoanProposal { get; set; }
+    public int PaymentScheduleId { get; set; }
+    [JsonIgnore] public PaymentSchedule PaymentSchedule { get; set; }
 }
