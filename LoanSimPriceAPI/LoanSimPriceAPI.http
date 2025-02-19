@@ -1,0 +1,6 @@
+@LoanSimPriceAPI_HostAddress = http://localhost:5188
+
+GET {{LoanSimPriceAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
