@@ -74,6 +74,12 @@ Se preferir rodar os comandos manualmente, siga:
   dotnet ef database update
 ```
 
+🚀 Rodar o Projeto
+
+ ```shell
+   dotnet run
+ ```
+
 ### 🌐 **Acessar a API:**
 A API estará disponível em:
 ```bash
