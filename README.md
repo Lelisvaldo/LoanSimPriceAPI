@@ -20,6 +20,21 @@ Este projeto é uma API em .NET usando ASP.NET Core, projetada para simulação 
 
 ---
 
+### 📥 **Clonar o Repositório**
+
+Clone o repositório utilizando o comando abaixo:
+
+```bash
+  git clone https://github.com/Lelisvaldo/LoanSimPriceAPI.git
+```
+
+Depois de clonar, acesse o diretório do projeto:
+
+```bash
+  cd LoanSimPriceAPI
+```
+---
+
 ## 🏃 **Como Rodar o Projeto**
 
 ### 🔥 **Rodar com Docker**
