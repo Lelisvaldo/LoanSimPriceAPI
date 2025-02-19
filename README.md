@@ -1,60 +1,132 @@
 ## **LoanSimPriceAPI**
 
-This project is an API implementation in .NET using ASP.NET Core, designed for loan simulation based on the Price amortization method. It provides endpoints to calculate fixed installments, interest, amortization, and outstanding balance over time. The API enables efficient and precise loan simulations, making it ideal for financial applications requiring detailed payment schedules.
+Este projeto é uma API em .NET usando ASP.NET Core, projetada para simulação de empréstimos com base no método de amortização Price. Ela oferece endpoints para calcular parcelas fixas, juros, amortização e saldo devedor ao longo do tempo, sendo ideal para aplicações financeiras que exigem cronogramas detalhados de pagamento.
 
-## Features
+---
 
-- List all posts
-- Get posts by ID
-- Create a new post
-- Update an existing post
-- Delete a post
+## 🚀 **Funcionalidades**
 
-## Requirements
+- Simulação de empréstimos baseada no método Price
+- Cálculo de parcelas mensais fixas, juros totais e saldo devedor
 
-- .NET SDK (version 8.0.0)
-- Visual Studio or Visual Studio Code
+---
 
-## Getting Started
+## ⚙️ **Requisitos**
 
-1. Clone the repository:
+- .NET SDK (versão 8.0.0 ou superior)
+- SQL Server
+- Docker e Docker Compose
+- Visual Studio, Visual Studio Code ou JetBrains Rider
 
-   ```shell
-   git clone git@github.com:Lelisvaldo/LoanSimPriceAPI.git
-   ```
+---
 
-2. Open the project in your preferred development environment.
+## 🏃 **Como Rodar o Projeto**
 
-3. Build the project to restore dependencies:
+### 🔥 **Rodar com Docker**
 
-   ```shell
-   dotnet build
-   ```
+Um script `run_project.bat` foi fornecido para automatizar todo o processo. Ele:
 
-4. Run the project:
+- Remove containers Docker existentes
+- Inicializa o ambiente com Docker Compose
+- Remove migrações anteriores
+- Cria nova migração (`InitialCreate`)
+- Atualiza o banco de dados
 
-   ```shell
-   dotnet run
-   ```
+### 🔧 **Passos para execução com Docker:**
 
-5. The API will be accessible at:
-   ```shell
-      "https://localhost:[port]/api"
-   ```
+1️⃣ **Certifique-se de que o Docker e o Docker Compose estão instalados e em execução.**
 
-## API Endpoints *
+2️⃣ **Execute o script `run_project.bat`:**
+```bash
+  ./run_project.bat
+```
 
-- **GET /** – Get the API status
-- **GET /api/loans** – Get all loan simulations
-- **GET /api/loans/{id}** – Get a loan simulation by ID
-- **POST /api/loans** – Create a new loan simulation
-- **PUT /api/loans/{id}** – Update a loan simulation
-- **DELETE /api/loans/{id}** – Delete a loan simulation
+3️⃣ **Verifique se os containers estão rodando:**
+```bash
+  docker ps
+```
 
-## Contributing
+Se preferir rodar os comandos manualmente, siga:
+```bash
+  # Remover containers existentes
+  docker-compose down -v --rmi all --remove-orphans
 
-Contributions are welcome! If you find any issues or want to add new features, feel free to open an issue or submit a pull request.
+  # Iniciar Docker Compose
+  docker-compose up -d
+  
+  # Remover migração anterior
+  dotnet ef migrations remove -f
+  
+  # Criar nova migração
+  dotnet ef migrations add InitialCreate
+  
+  # Atualizar banco de dados
+  dotnet ef database update
+```
 
-## License
+### 🌐 **Acessar a API:**
+A API estará disponível em:
+```bash
+  https://localhost:5001/api
+```
 
-Distributed under the MIT License.
+---
+
+## 🧩 **Endpoint da API**
+
+- **POST /api/loans/simulate** – Criar uma nova simulação de empréstimo
+
+### 🔗 **Exemplo de Requisição (JSON)**
+
+```json
+{
+  "loanAmount": 10000.0,
+  "annualInterestRate": 0.05,
+  "numberOfMonths": 12
+}
+```
+
+### 📄 **Resposta esperada:**
+```json
+{
+  "monthlyPayment": 856.07,
+  "totalInterest": 272.84,
+  "totalPayment": 10272.84,
+  "paymentScheduleDetails": [
+    {
+      "month": 1,
+      "principal": 789.40,
+      "interest": 66.67,
+      "balance": 9210.60
+    },
+    ...
+  ]
+}
+```
+
+📌 **Observação:** Utilize ferramentas como **Postman** ou **Swagger** para testar o endpoint.
+
+---
+
+## 🧪 **Executar Testes**
+
+Se houver testes unitários disponíveis:
+```bash
+  dotnet test
+```
+
+---
+
+## 🎨 **Documentação da API (Swagger)**
+
+A documentação estará disponível em:
+```bash
+  https://localhost:5001/swagger/index.html
+```
+
+---
+
+## 📜 **Licença**
+
+Distribuído sob a Licença MIT. Consulte `LICENSE` para mais informações.
+
