@@ -36,7 +36,7 @@ Um script `run_project.bat` foi fornecido para automatizar todo o processo. Ele:
 
 1️⃣ **Certifique-se de que o Docker e o Docker Compose estão instalados e em execução.**
 
-2️⃣ **Execute o script `run_project.bat`:**
+2️⃣ **Execute o script [`run_project.bat`](./LoanSimPriceAPI/run_project.bat):**
 ```bash
   ./run_project.bat
 ```
@@ -67,7 +67,7 @@ Se preferir rodar os comandos manualmente, siga:
 ### 🌐 **Acessar a API:**
 A API estará disponível em:
 ```bash
-  https://localhost:5001/api
+  https://localhost:'[port]'/api/loans/simulate
 ```
 
 ---
@@ -86,34 +86,7 @@ A API estará disponível em:
 }
 ```
 
-### 📄 **Resposta esperada:**
-```json
-{
-  "monthlyPayment": 856.07,
-  "totalInterest": 272.84,
-  "totalPayment": 10272.84,
-  "paymentScheduleDetails": [
-    {
-      "month": 1,
-      "principal": 789.40,
-      "interest": 66.67,
-      "balance": 9210.60
-    },
-    ...
-  ]
-}
-```
-
 📌 **Observação:** Utilize ferramentas como **Postman** ou **Swagger** para testar o endpoint.
-
----
-
-## 🧪 **Executar Testes**
-
-Se houver testes unitários disponíveis:
-```bash
-  dotnet test
-```
 
 ---
 
@@ -121,12 +94,12 @@ Se houver testes unitários disponíveis:
 
 A documentação estará disponível em:
 ```bash
-  https://localhost:5001/swagger/index.html
+  https://localhost:'[port]'/swagger/index.html
 ```
 
 ---
 
 ## 📜 **Licença**
 
-Distribuído sob a Licença MIT. Consulte `LICENSE` para mais informações.
+Distribuído sob a Licença MIT. Consulte [`LICENSE`](LICENSE) para mais informações.
 
