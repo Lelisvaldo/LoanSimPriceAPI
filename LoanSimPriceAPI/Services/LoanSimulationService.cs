@@ -3,34 +3,52 @@ using LoanSimPriceAPI.Services.Interfaces;
 
 namespace LoanSimPriceAPI.Services;
 
-public class LoanSimulationService : ILoanSimulationService
+public class LoanSimulationService(ILoanRepository loanRepository) : ILoanSimulationService
 {
-    private readonly ILoanRepository _loanRepository;
-
-    public LoanSimulationService(ILoanRepository loanRepository)
-    {
-        _loanRepository = loanRepository;
-    }
-
     public async Task<PaymentSchedule> SimulateLoanAsync(LoanProposal proposal)
     {
         var monthlyRate = proposal.AnnualInterestRate / 12;
-        var monthlyPayment = proposal.LoanAmount * (monthlyRate / (decimal)(1 - Math.Pow(1 + (double)monthlyRate, -proposal.NumberOfMonths)));
+        var monthlyPayment = proposal.LoanAmount *
+                             (monthlyRate / (decimal)(1 - Math.Pow(1 + (double)monthlyRate, -proposal.NumberOfMonths)));
 
         var totalPayment = monthlyPayment * proposal.NumberOfMonths;
         var totalInterest = totalPayment - proposal.LoanAmount;
 
-        proposal = await _loanRepository.AddProposalAsync(proposal);
+        proposal = await loanRepository.AddProposalAsync(proposal);
+
+        decimal balance = proposal.LoanAmount;
+        var paymentScheduleList = new List<PaymentFlowSummary>();
+
+        for (int month = 1; month <= proposal.NumberOfMonths; month++)
+        {
+            var interest = balance * monthlyRate;
+            var principal = monthlyPayment - interest;
+            balance -= principal;
+
+            var paymentFlow = new PaymentFlowSummary
+            {
+                Month = month,
+                Principal = principal,
+                Interest = interest,
+                Balance = balance > 0 ? balance : 0,
+                LoanProposalId = proposal.Id
+            };
+
+            paymentScheduleList.Add(paymentFlow);
+        }
 
         var schedule = new PaymentSchedule
         {
             MonthlyPayment = monthlyPayment,
             TotalInterest = totalInterest,
             TotalPayment = totalPayment,
-            LoanProposalId = proposal.Id
+            LoanProposalId = proposal.Id,
+            PaymentScheduleDetails = paymentScheduleList
         };
 
-        await _loanRepository.AddPaymentScheduleAsync(schedule);
+        await loanRepository.AddPaymentScheduleAsync(schedule);
+        await loanRepository.AddPaymentFlowSummaryAsync(paymentScheduleList);
+
         return schedule;
     }
 }

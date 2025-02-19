@@ -8,4 +8,5 @@ public class PaymentSchedule
     public decimal TotalPayment { get; set; }
     public int LoanProposalId { get; set; }
     public LoanProposal LoanProposal { get; set; }
+    public ICollection<PaymentFlowSummary> PaymentScheduleDetails { get; set; } = new List<PaymentFlowSummary>();
 }

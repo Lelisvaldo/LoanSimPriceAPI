@@ -7,4 +7,5 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<LoanProposal> LoanProposals { get; set; }
     public DbSet<PaymentSchedule> PaymentSchedules { get; set; }
+    public DbSet<PaymentFlowSummary> PaymentFlowSummaries { get; set; }
 }

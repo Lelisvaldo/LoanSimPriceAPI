@@ -26,4 +26,10 @@ public class LoanRepository : ILoanRepository
         await _context.SaveChangesAsync();
         return schedule;
     }
+
+    public async Task AddPaymentFlowSummaryAsync(IEnumerable<PaymentFlowSummary> paymentFlows)
+    {
+        _context.PaymentFlowSummaries.AddRange(paymentFlows);
+        await _context.SaveChangesAsync();
+    }
 }
