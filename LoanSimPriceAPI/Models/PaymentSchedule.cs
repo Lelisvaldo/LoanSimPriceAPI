@@ -11,5 +11,7 @@ public class PaymentSchedule
     public int LoanProposalId { get; set; }
 
     [JsonIgnore] public LoanProposal LoanProposal { get; set; }
+
+    [JsonPropertyName("paymentSchedule")]
     public ICollection<PaymentFlowSummary> PaymentScheduleDetails { get; set; } = new List<PaymentFlowSummary>();
 }
