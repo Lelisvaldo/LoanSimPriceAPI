@@ -29,7 +29,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Registra os Serviços
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 builder.Services.AddScoped<ILoanSimulationService, LoanSimulationService>();
-builder.Services.AddScoped<IAuthService, AuthService>(); // ✅ REGISTRA O SERVIÇO CORRETAMENTE
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
