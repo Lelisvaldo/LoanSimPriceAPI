@@ -31,7 +31,12 @@ builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 builder.Services.AddScoped<ILoanSimulationService, LoanSimulationService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+
+
 var app = builder.Build();
+
+// Configuração das rotas mínimas
+app.MapGet("/", () => "Bem-vindo ao Jhol e as baratas API!");
 
 // Configuração do pipeline HTTP
 if (app.Environment.IsDevelopment())
