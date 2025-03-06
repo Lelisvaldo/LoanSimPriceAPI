@@ -1,10 +1,12 @@
 ﻿using LoanSimPriceAPI.Dtos;
 using LoanSimPriceAPI.Models;
 using LoanSimPriceAPI.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoanSimPriceAPI.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/loans/simulate")]
 public class LoanSimulationController(ILoanSimulationService loanSimulationService) : ControllerBase
